@@ -10,15 +10,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @Controller // This means that this class is a Controller
-@RequestMapping(path="/algo") // This means URL's start with /demo (after Application path)
+@RestController  // THIS IS VERY IMPORTANT FOR THE LOAD BALANCER TO WORK  page starts with 
+@RequestMapping(path="/algo") // This means URL's start with /algo (after Application path)
 public class MainController {
-
     //each sorting method will be given with a Javascrip example
     @Autowired // This means to get the bean called userRepository
     private ItemRepository itemRepository;;
+
+    @GetMapping("/") public String health(){
+        return "This app is working!!!";
+        //The load balancer for Elastic Beanstalk by default utilizes path “/” for health checks. Your application will keep failing health checks and display Severe status in the dashboard if that path is not defined in your controller. Either include a “/” endpoint in your rest controller code, or later change the load balancer setting to utilize an alternate path.
+    }
+
+    
 
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody String addNewItem (@RequestBody Item item) {
