@@ -2,6 +2,7 @@ package com.example.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller // This means that this class is a Controller
 @RestController  // THIS IS VERY IMPORTANT FOR THE LOAD BALANCER TO WORK  page starts with 
 @RequestMapping(path="/algo") // This means URL's start with /algo (after Application path)
+@CrossOrigin(origins = "*") // Allows requests from any origin
 public class MainController {
     //each sorting method will be given with a Javascrip example
     @Autowired // This means to get the bean called userRepository
